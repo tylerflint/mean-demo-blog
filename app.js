@@ -3,10 +3,11 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path');
+var express   = require('express'),
+    http      = require('http'),
+    path      = require('path'),
+    mongoose  = require('mongoose'),
+    Post      = require('./lib/post.js');
 
 var app = express();
 
@@ -26,8 +27,18 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
+app.get('/posts', Post.getPosts);
+app.get('/post/:id', Post.getPostContent);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+// Connect to mongo before starting the server
+mongoose.connect('127.0.0.1', 'mean-demo-blog', 27017, function(err) {
+  if (err) {
+    console.log('Could not connect to mongo: ' + err);
+    process.exit(1);
+  }
+
+  // We've connected to Mongo, so start the web server
+  http.createServer(app).listen(app.get('port'), function(){
+    console.log('Demo server listening on port ' + app.get('port'));
+  });
 });
