@@ -7,6 +7,18 @@ a {
   color: #00B7FF;
 }
 
+.posts {
+  width: 60%;
+  float: left;
+}
+
+.new-post {
+  width: 35%;
+  float: right;
+  border: 1px solid #CCC;
+  padding: 10px;
+}
+
 .post-preview {
   border: 1px solid #CCC;
   padding: 10px;

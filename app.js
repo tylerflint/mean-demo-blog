@@ -29,6 +29,7 @@ app.configure('development', function(){
 
 app.get('/posts', Post.getPosts);
 app.get('/post/:postId', Post.getPostContent);
+app.post('/post/save', Post.savePost);
 
 // Connect to mongo before starting the server
 mongoose.connect('127.0.0.1', 'mean-demo-blog', 27017, function(err) {

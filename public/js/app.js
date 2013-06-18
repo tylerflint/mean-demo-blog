@@ -4,9 +4,9 @@ var Controllers = (function(Controllers, blogPosts) {
   "use strict";
 
   /**
-   * Main controller for the page.
+   * Controller for posts list.
    */
-  Controllers.Main = function($scope, $http) {
+  Controllers.Posts = function($scope, $http) {
     // Bring the blog posts into the scope of this controller
     $scope.posts = blogPosts;
 
@@ -36,7 +36,54 @@ var Controllers = (function(Controllers, blogPosts) {
       });
     };
   };
-  Controllers.Main.$inject = ['$scope','$http'];
+  Controllers.Posts.$inject = ['$scope','$http'];
+
+  /**
+   * Controller for posts list.
+   */
+  Controllers.NewPost = function($scope, $http) {
+
+    /**
+     * Submits the new post.
+     */
+    $scope.submit = function(idx) {
+      if (!$scope.title) {
+        alert('Missing Title');
+        return;
+      }
+
+      if (!$scope.author) {
+        alert('Missing Author');
+        return;
+      }
+
+      if (!$scope.content) {
+        alert('Missing Content');
+        return;
+      }
+
+      var post = {
+        title:    $scope.title,
+        author:   $scope.author,
+        content:  $scope.content
+      };
+
+      // Asynchronously get the post content and display it
+      $http.post('/post/save', post).success(function(p) {
+        // Add current date to post
+        post.date = (new Date()).now;
+
+        // Add new post to blog roll
+        blogPosts.unshift(post);
+
+        // Reset form
+        $scope.title = '';
+        $scope.author = '';
+        $scope.content = '';
+      });
+    };
+  };
+  Controllers.NewPost.$inject = ['$scope','$http'];
 
   return Controllers;
 
