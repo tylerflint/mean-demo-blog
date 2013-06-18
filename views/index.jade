@@ -14,5 +14,6 @@ html(ng-app)
     div.post-preview(ng-repeat="post in posts",ng-click="showPost($index)")
       h2 {{post.title}}
       p {{post.date | date:'shortDate'}} by {{post.author}}
+      div(ng-hide="!post.show") {{post.content}}
 
     
