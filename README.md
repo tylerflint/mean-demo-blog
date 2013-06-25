@@ -3,6 +3,12 @@ mean-demo-blog
 
 Demonstration of the MEAN stack with a simple blog app.
 
+Install Mongo
+==============
+
+http://docs.mongodb.org/manual/installation/
+
+
 Sample Data
 ==============
 
