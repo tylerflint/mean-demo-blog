@@ -14,10 +14,7 @@ var Controllers = (function(Controllers, blogPosts) {
      * Shows the post at the given index by redirecting the user.
      * @param {Number} idx
      */
-    $scope.showPost = function(idx) {
-      if (idx < 0 || idx >= $scope.posts.length) return;
-
-      var post = $scope.posts[idx];
+    $scope.showPost = function(post) {
 
       // If the post is showing, hide it. Else, if we already
       // have the post content, just show it
@@ -70,11 +67,8 @@ var Controllers = (function(Controllers, blogPosts) {
 
       // Asynchronously get the post content and display it
       $http.post('/post/save', post).success(function(p) {
-        // Add current date to post
-        post.date = (new Date()).now;
-
         // Add new post to blog roll
-        blogPosts.unshift(post);
+        blogPosts.unshift(p);
 
         // Reset form
         $scope.title = '';
