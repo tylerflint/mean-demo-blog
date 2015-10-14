@@ -32,7 +32,7 @@ app.get('/post/:postId', Post.getPostContent);
 app.post('/post/save', Post.savePost);
 
 // Connect to mongo before starting the server
-mongoose.connect('127.0.0.1', 'mean-demo-blog', 27017, function(err) {
+mongoose.connect(process.env.MONGODB1_HOST, 'mean-demo-blog', process.env.MONGODB1_PORT, function(err) {
   if (err) {
     console.log('Could not connect to mongo: ' + err);
     process.exit(1);
